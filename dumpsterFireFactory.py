@@ -62,6 +62,9 @@ kLabelDelayedIgnitionStartUTC = "Delayed Ignition Start (UTC):"
 # Used to filter out the required "__init__.py" files from displayed FireModule lists
 kLabelDirInitFile = "__init__.py"
 
+# Used to filter out Python 3 bytecode cache directories from displayed Fire Category lists
+kLabelPycacheDir = "__pycache__"
+
 # Create lists of DumpsterFires, Fire Categories, and Fires 
 # Global variables can be a source of trouble, and yet here I am...
 # Used for menu-driven interaction while browsing DumpsterFires and Fires
@@ -78,9 +81,13 @@ for root, dirs, files in os.walk( "./DumpsterFires" ):
                         gDumpsterFires.append( file )
             
 # Load the list of available Fire Categories, basically any directory in "./FireModules/"
+# Only look at the immediate children of "./FireModules" -- os.walk() recurses into every
+# subdirectory, which would otherwise pick up nested "__pycache__" dirs as fake categories
 for root, dirnames, filenames in os.walk( "./FireModules" ):
         for dir in dirnames:
-                gFireCategories.append( dir )
+                if ( dir != kLabelPycacheDir ):
+                        gFireCategories.append( dir )
+        break
             
 # Lists of Fires are loaded based on user's selection of a Category, dynamically
 # populates per Category
