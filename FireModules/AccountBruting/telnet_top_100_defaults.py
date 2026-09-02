@@ -56,7 +56,7 @@ class telnet_top_100_defaults( FireModule ):
                         return
                 else:
 
-                        self.mCurrentDateTimeUTC = datetime.datetime.utcnow()
+                        self.mCurrentDateTimeUTC = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
                         print( "UTC", self.mCurrentDateTimeUTC.strftime("%x %X"), "- Attempting telnet connection to:", self.networkAddrStr )
 

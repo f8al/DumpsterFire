@@ -49,7 +49,7 @@ class DumpsterFire:
         mFires = []	 # List of FireNodes
         mDelayLaunch = False
         # Set default launch date to now, basically "Immediately", so we have a valid date initialized
-        mLaunchDateTimeUTC = datetime.datetime.utcnow()	# Default to now, basically "Immediate"
+        mLaunchDateTimeUTC = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)	# Default to now, basically "Immediate"
 
 
 kDumpsterFireDirectory = "DumpsterFires/"
@@ -286,7 +286,7 @@ def ConfigureDumpsterFire( thisDumpsterFire ):
 
                 i = i + 1
 
-        currentDT_UTC = datetime.datetime.utcnow()
+        currentDT_UTC = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
         print( "" )
         print( "-----------------  DumpsterFire Name  -----------------" )
@@ -853,7 +853,7 @@ def IgniteDumpsterFire( thisDumpsterFire, withUserInteraction ):
                 print( thisDumpsterFire.mLaunchDateTimeUTC.strftime("%x %X") )
                 print( "" )
         
-                waitTime = thisDumpsterFire.mLaunchDateTimeUTC - datetime.datetime.utcnow()
+                waitTime = thisDumpsterFire.mLaunchDateTimeUTC - datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
                 if ( waitTime.total_seconds() > 1 ):
 
@@ -963,9 +963,9 @@ def StartDumpsterFire():
 
         # DEBUG DEBUG DEBUG
         fuseDelayStr = hotDumpsterFire.mLaunchDateTimeUTC.strftime("%x %X")
-        currentDT_UTC = datetime.datetime.utcnow()
+        currentDT_UTC = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
-        waitTime = hotDumpsterFire.mLaunchDateTimeUTC - datetime.datetime.utcnow()
+        waitTime = hotDumpsterFire.mLaunchDateTimeUTC - datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
         if ( waitTime.total_seconds() < 1 ):
                 fuseDelayStr = "None (immediate ignition)"
@@ -999,7 +999,7 @@ def StartDumpsterFire():
 
         PrintDumpsterFireConfig( hotDumpsterFire )
 
-        currentDT_UTC = datetime.datetime.utcnow()
+        currentDT_UTC = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
         print( "" )
         print( "Fire will start (UTC): ", fuseDelayStr, " - Current Date/Time (UTC) =", currentDT_UTC.strftime("%x %X") )
@@ -1137,7 +1137,7 @@ def SelectFire( fireCategory ):
 
 def PrintDateTimeStamps():
 
-        currentUTC = datetime.datetime.utcnow()
+        currentUTC = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         print( "UTC: " + currentUTC.strftime("%x %X") + "  / ", end=' ' )
         print( time.strftime("%Z: %x %X", time.localtime(time.time())) )
 
@@ -1163,7 +1163,7 @@ def BuildDateTime():
         month = 0
         day = 0
         done = 0
-        fireStartTime = datetime.datetime.utcnow()
+        fireStartTime = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
         print( "Current Date/Time --", end=' ' )
         PrintDateTimeStamps()
