@@ -1559,7 +1559,7 @@ def IgniteFire( modulePath, fireName, params ):
 
 def MainMenu():
 
-        selectionErrorMsg = "1-9 are your options. Try again."
+        selectionErrorMsg = "1-8 are your options. Try again."
         notDone = 1
 
         while ( notDone ): 
